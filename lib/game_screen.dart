@@ -57,9 +57,9 @@ class _GameScreenState extends State<GameScreen> {
         _winner = _currentPlayer;
         _gameOver = true;
         if (_winner == "X") {
-          player1Score += 3;
+         player1Score++;
         } else {
-          player2Score += 3;
+           player2Score++;
         }
       } else if (_board[0][col] == _currentPlayer &&
           _board[1][col] == _currentPlayer &&
@@ -67,9 +67,9 @@ class _GameScreenState extends State<GameScreen> {
         _winner = _currentPlayer;
         _gameOver = true;
         if (_winner == "X") {
-          player1Score += 3;
+         player1Score++;
         } else {
-          player2Score += 3;
+           player2Score++;
         }
       } else if (_board[0][0] == _currentPlayer &&
           _board[1][1] == _currentPlayer &&
@@ -77,9 +77,9 @@ class _GameScreenState extends State<GameScreen> {
         _winner = _currentPlayer;
         _gameOver = true;
         if (_winner == "X") {
-          player1Score += 3;
+         player1Score++;
         } else {
-          player2Score += 3;
+           player2Score++;
         }
       } else if (_board[0][2] == _currentPlayer &&
           _board[1][1] == _currentPlayer &&
@@ -87,9 +87,9 @@ class _GameScreenState extends State<GameScreen> {
         _winner = _currentPlayer;
         _gameOver = true;
         if (_winner == "X") {
-          player1Score += 3;
+         player1Score++;
         } else {
-          player2Score += 3;
+           player2Score++;
         }
       }
 
@@ -100,8 +100,7 @@ class _GameScreenState extends State<GameScreen> {
       if (!_board.any((row) => row.any((cell) => cell == ""))) {
         _gameOver = true;
         _winner = "It's a Tie";
-        player1Score++;
-        player2Score++;
+        
       }
 
       // Show dialog if there's a winner
@@ -112,9 +111,9 @@ class _GameScreenState extends State<GameScreen> {
           animType: AnimType.rightSlide,
           btnOkText: "Play Again",
           title: _winner == "X"
-              ? "${widget.player1} Won!"
+              ? widget.player1  + "Won!"
               : _winner == "O"
-                  ? "${widget.player2} Won!"
+                  ? widget.player2 +"Won!"
                   : "It's a Tie",
           btnOkOnPress: () {
             _resetGame();
@@ -128,7 +127,7 @@ class _GameScreenState extends State<GameScreen> {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Scaffold(
-      backgroundColor: const Color(0xff36248d),
+      backgroundColor: Color.fromARGB(255, 230, 176, 49),
       body: Column(
         children: [
           SizedBox(
@@ -281,7 +280,7 @@ class _GameScreenState extends State<GameScreen> {
           SizedBox(height: 2),
           Container(
             decoration: BoxDecoration(
-              color: const Color(0xff6549c4),
+              color: Color.fromARGB(255, 251, 214, 128),
               borderRadius: BorderRadius.circular(10),
             ),
             margin: EdgeInsets.all(5),

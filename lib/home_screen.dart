@@ -17,18 +17,29 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 70, 80, 109),
+      backgroundColor: Color.fromARGB(255, 230, 176, 49),
       
       body: Form(
         key: _formKey,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-             Image.asset(
-                'assets/images/tic.png',
-                width: 400,
-                
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Container(
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    color: Colors.white, // สีขอบ
+                    width: 5, // ความหนาของขอบ
+                  ),
+                  borderRadius: BorderRadius.circular(10), // ทำขอบมน
+                ),
+                child: Image.asset(
+                  'assets/images/5.gif',
+                  width: 400,
+                ),
               ),
+            ),
             Text(
               "Enter Players Name",
               style: TextStyle(
