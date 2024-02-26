@@ -1,6 +1,7 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:tic_tac_game/home_screen.dart';
+import 'package:audioplayers/audioplayers.dart';
 
 class GameScreen extends StatefulWidget {
   String player1;
@@ -10,6 +11,7 @@ class GameScreen extends StatefulWidget {
   @override
   State<GameScreen> createState() => _GameScreenState();
 }
+final play = AudioPlayer();
 
 class _GameScreenState extends State<GameScreen> {
   late List<List<String>> _board;
@@ -43,12 +45,18 @@ class _GameScreenState extends State<GameScreen> {
    
 
   void _makeMove(int row, int col) {
+    play.play(AssetSource('pop-94319.mp3'));
+    
     if (_board[row][col] != "" || _gameOver) {
+      
+
       return;
+      
     }
 
     setState(() {
       _board[row][col] = _currentPlayer;
+      play.play(AssetSource('pop-94319.mp3'));
 
       //check winner
       if (_board[row][0] == _currentPlayer &&
@@ -77,6 +85,7 @@ class _GameScreenState extends State<GameScreen> {
         _winner = _currentPlayer;
         _gameOver = true;
         if (_winner == "X") {
+          play.play(AssetSource('1.mp3'));
          player1Score++;
         } else {
            player2Score++;
@@ -95,30 +104,41 @@ class _GameScreenState extends State<GameScreen> {
 
       //swith player
       _currentPlayer = _currentPlayer == "X" ? "O" : "X";
+      
 
       //check for tie
       if (!_board.any((row) => row.any((cell) => cell == ""))) {
+        
         _gameOver = true;
         _winner = "It's a Tie";
+        
+        
+        
         
       }
 
       // Show dialog if there's a winner
       if (_winner != "") {
+        
         AwesomeDialog(
+         
           context: context,
           dialogType: DialogType.success,
           animType: AnimType.rightSlide,
           btnOkText: "Play Again",
+          
           title: _winner == "X"
+          
               ? widget.player1  + "Won!"
               : _winner == "O"
                   ? widget.player2 +"Won!"
                   : "It's a Tie",
           btnOkOnPress: () {
             _resetGame();
+           
           },
         )..show();
+         
       }
     });
   }
@@ -140,7 +160,7 @@ class _GameScreenState extends State<GameScreen> {
                 decoration: BoxDecoration(
                     border: Border.all(
                         color: _currentPlayer == "X"
-                            ? const Color(0xfffed031)
+                            ? Color.fromARGB(255, 46, 255, 49)
                             : const Color(0xff332167)),
                     color: const Color(0xff332167),
                     borderRadius: const BorderRadius.all(Radius.circular(10))),
@@ -292,8 +312,11 @@ class _GameScreenState extends State<GameScreen> {
                 itemBuilder: (context, index) {
                   int row = index ~/ 3;
                   int col = index % 3;
+                  
                   return GestureDetector(
+                    
                     onTap: () => _makeMove(row, col),
+                    
                     child: Center(
                       child: Container(
                         margin: EdgeInsets.all(5),
@@ -302,6 +325,7 @@ class _GameScreenState extends State<GameScreen> {
                           borderRadius: BorderRadius.circular(10),
                         ),
                         child: Center(
+                          
                           // Adjust the value as needed
                           child: Text(
                             _board[row][col],
@@ -311,6 +335,9 @@ class _GameScreenState extends State<GameScreen> {
                               color: _board[row][col] == "X"
                                   ? Color(0xFFE25041)
                                   : Color(0xfffed031),
+                                  
+                                  
+                                  
                             ),
                           ),
                         ),
